@@ -30,8 +30,8 @@ container.append(title, taskForm, tasksContainer);
 
 // FUNCTIONALITY
 buttonSubmit.addEventListener('click', function() {
-  var taskContainer = document.createElement('div');
-  taskContainer.className = 'd-flex justify-content-between align-items-center mt-3';
+  var task = document.createElement('div');
+  task.className = 'd-flex justify-content-between align-items-center mt-3';
   
   //create all task elements
   var taskCheckbox = document.createElement('input');
@@ -74,13 +74,29 @@ buttonSubmit.addEventListener('click', function() {
   function playAudio() {
     completeTaskTune.play();
   }
+
+  //sort tasks
+  function sortTaks(container) {
+    var checkboxItems = document.getElementsByClassName('form-check-input');
+    if(checkboxItems.length-1 >= 1) {
+      for(var i = 0; i < checkboxItems.length-1; i++) {
+        if(checkboxItems[i].checked === true)
+          container.append(checkboxItems[i].parentNode);
+      }
+    }
+  }
+
   //click event to checkbox
   taskCheckbox.addEventListener('click', function(){
     if(taskCheckbox.checked === true){
       taskTitle.style.textDecoration = "line-through";
+      
       //send checked task to botton
-      var taskElement = taskTitle.parentNode;
-      taskElement.parentNode.append(taskElement);
+      //var taskElement = taskTitle.parentNode;
+      //taskElement.parentNode.append(taskElement);
+      
+      sortTaks(tasksContainer);
+
       //reproduce sound
       playAudio();
     }else {
@@ -90,11 +106,12 @@ buttonSubmit.addEventListener('click', function() {
 
   //click event to delete task
   taskDelete.addEventListener('click', function(){
-    taskContainer.remove();
+    task.remove();
   })
 
-  taskContainer.append(taskCheckbox, taskTitle, taskEditor);
-  tasksContainer.append(taskContainer)
+  task.append(taskCheckbox, taskTitle, taskEditor);
+  tasksContainer.insertBefore(task, tasksContainer.lastChild)
   //clean input
   input.value = ''
+  sortTaks(tasksContainer);
 })
