@@ -1,5 +1,7 @@
+// STRUCTURE
 var container = document.querySelector('#app');
-container.className = 'container text-center my-5'
+container.className = 'container text-center my-5';
+
 //create title
 var title = document.createElement('h1');
 title.textContent = 'ToDo App';
@@ -21,9 +23,10 @@ tasksContainer.className = 'mt-4';
 
 container.append(title, taskForm, tasksContainer);
 
+// FUNCTIONALITY
 buttonSubmit.addEventListener('click', function() {
   var taskContainer = document.createElement('div');
-  taskContainer.className = 'd-flex justify-content-between align-items-center mt-3'
+  taskContainer.className = 'd-flex justify-content-between align-items-center mt-3';
   //create all task elements
   var taskCheckbox = document.createElement('input');
   taskCheckbox.type = 'checkbox';
@@ -32,12 +35,14 @@ buttonSubmit.addEventListener('click', function() {
   taskTitle.textContent = input.value;
   var taskDelete = document.createElement('button');
   taskDelete.textContent = '❌';
-  taskDelete.className = 'btn btn-dark'
+  taskDelete.className = 'btn btn-dark';
 
   //click event to checkbox
   taskCheckbox.addEventListener('click', function(){
     if(taskCheckbox.checked === true){
-      taskTitle.style.textDecoration = "line-through"
+      taskTitle.style.textDecoration = "line-through";
+      var taskElement = taskTitle.parentNode;
+      taskElement.parentNode.append(taskElement);
     }else {
       taskTitle.style.textDecoration = "none"
     }
