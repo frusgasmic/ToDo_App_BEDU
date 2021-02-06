@@ -11,8 +11,11 @@ input.placeholder = 'New Task...';
 input.className = 'form-control';
 //create button submit
 var buttonSubmit = document.createElement('button');
-buttonSubmit.textContent = 'Add';
-buttonSubmit.className = 'btn btn-info';
+buttonSubmit.className = 'btn btn-outline-primary';
+var addIcon = document.createElement('i');
+addIcon.className = 'bi bi-plus text-light align-middle';
+addIcon.style.fontSize = '20px';
+buttonSubmit.append(addIcon);
 //create form to input and buttonsubmit
 var taskForm = document.createElement('div');
 taskForm.className = 'input-group mt-4';
@@ -41,8 +44,8 @@ buttonSubmit.addEventListener('click', function() {
   taskCheckbox.addEventListener('click', function(){
     if(taskCheckbox.checked === true){
       taskTitle.style.textDecoration = "line-through";
-      var taskElement = taskTitle.parentNode;
-      taskElement.parentNode.append(taskElement);
+      //var taskElement = taskTitle.parentNode;
+      //taskElement.parentNode.append(taskElement);
     }else {
       taskTitle.style.textDecoration = "none"
     }
