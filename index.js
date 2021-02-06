@@ -32,21 +32,57 @@ container.append(title, taskForm, tasksContainer);
 buttonSubmit.addEventListener('click', function() {
   var taskContainer = document.createElement('div');
   taskContainer.className = 'd-flex justify-content-between align-items-center mt-3';
+  
   //create all task elements
   var taskCheckbox = document.createElement('input');
   taskCheckbox.type = 'checkbox';
   taskCheckbox.className = 'form-check-input';
   var taskTitle = document.createElement('span');
   taskTitle.textContent = input.value;
+
+  //task editor
+  var taskEditor = document.createElement('div'); 
+  taskEditor.className = 'd-flex justify-content-around align-self-middle align-items-center w-25'
+    //delete task
   var taskDelete = document.createElement('button');
   taskDelete.className = 'd-flex align-items-center btn btn-danger bi bi-trash';
+    // select task priority
+  //var taskPriority = document.createElement('div');
+  /*
+  var prioritySelector = document.createElement('button');
+  prioritySelector.className = 'btn border-secondary text-secondary';
+  prioritySelector.textContent = 'Priority';
+  prioritySelector.addEventListener('click', function(){
+    var prioritySelectorClicked = aText.toggle('1');
+    if(prioritySelectorClicked)
+      console.log('1 click!');
+    else
+      console.log('2 click!');
+  })
+  */
+  taskEditor.append(taskDelete);
 
+  //preload tunes
+  var completeTaskTune = document.createElement('audio');
+  var tuneFiles = document.createElement('source');
+  tuneFiles.src = 'media/achievement.ogg';
+  tuneFiles.type = 'audio/ogg';
+  completeTaskTune.append(tuneFiles);
+  tuneFiles.src = 'media/achievement.mp3';
+  tuneFiles.type = 'audio/mp3';
+  completeTaskTune.append(tuneFiles);
+  function playAudio() {
+    completeTaskTune.play();
+  }
   //click event to checkbox
   taskCheckbox.addEventListener('click', function(){
     if(taskCheckbox.checked === true){
       taskTitle.style.textDecoration = "line-through";
+      //send checked task to botton
       var taskElement = taskTitle.parentNode;
       taskElement.parentNode.append(taskElement);
+      //reproduce sound
+      playAudio();
     }else {
       taskTitle.style.textDecoration = "none"
     }
@@ -57,7 +93,7 @@ buttonSubmit.addEventListener('click', function() {
     taskContainer.remove();
   })
 
-  taskContainer.append(taskCheckbox, taskTitle, taskDelete);
+  taskContainer.append(taskCheckbox, taskTitle, taskEditor);
   tasksContainer.append(taskContainer)
   //clean input
   input.value = ''
