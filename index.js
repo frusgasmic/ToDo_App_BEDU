@@ -45,8 +45,8 @@ buttonSubmit.addEventListener('click', function() {
   taskCheckbox.addEventListener('click', function(){
     if(taskCheckbox.checked === true){
       taskTitle.style.textDecoration = "line-through";
-      //var taskElement = taskTitle.parentNode;
-      //taskElement.parentNode.append(taskElement);
+      var taskElement = taskTitle.parentNode;
+      taskElement.parentNode.append(taskElement);
     }else {
       taskTitle.style.textDecoration = "none"
     }
