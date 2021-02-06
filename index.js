@@ -31,7 +31,7 @@ container.append(title, taskForm, tasksContainer);
 // FUNCTIONALITY
 buttonSubmit.addEventListener('click', function() {
   var taskContainer = document.createElement('div');
-  taskContainer.className = 'd-flex justify-content-between align-items-center mt-3 bg-success';
+  taskContainer.className = 'd-flex justify-content-between align-items-center mt-3';
   //create all task elements
   var taskCheckbox = document.createElement('input');
   taskCheckbox.type = 'checkbox';
