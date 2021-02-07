@@ -63,20 +63,35 @@ buttonSubmit.addEventListener('click', function() {
   taskEditor.append(taskDelete);
 
   //preload tunes
-  var completeTaskTune = document.createElement('audio');
-  var tuneFiles = document.createElement('source');
-  tuneFiles.src = 'media/achievement.ogg';
-  tuneFiles.type = 'audio/ogg';
-  completeTaskTune.append(tuneFiles);
-  tuneFiles.src = 'media/achievement.mp3';
-  tuneFiles.type = 'audio/mp3';
-  completeTaskTune.append(tuneFiles);
-  function playAudio() {
-    completeTaskTune.play();
+  var completedTaskTune = document.createElement('audio');
+  var addedTaskTune = document.createElement('audio');
+  var deletedTaskTune = document.createElement('audio');
+  
+  function addAudioFileSource(audio,fileName, type) {
+    var tune = document.createElement('source');
+    tune.src = 'media/' + fileName + '.' + type;
+    tune.type = 'audio/' + type;
+    audio.append(tune);
+  }
+  
+  addAudioFileSource(completedTaskTune,'achievement','ogg');
+  addAudioFileSource(completedTaskTune,'achievement','mp3');
+  console.log(completedTaskTune);
+
+  addAudioFileSource(addedTaskTune,'add','ogg');
+  addAudioFileSource(addedTaskTune,'add','mp3');
+  console.log(addedTaskTune);
+  
+  addAudioFileSource(deletedTaskTune,'delete','ogg');
+  addAudioFileSource(deletedTaskTune,'delete','mp3');
+  console.log(deletedTaskTune);
+
+  function playAudio(audio) {
+    audio.play();
   }
 
   //sort tasks
-  function sortTaks(container) {
+  function sortTasks(container) {
     var checkboxItems = document.getElementsByClassName('form-check-input');
     if(checkboxItems.length-1 >= 1) {
       for(var i = 0; i < checkboxItems.length-1; i++) {
@@ -86,32 +101,36 @@ buttonSubmit.addEventListener('click', function() {
     }
   }
 
-  //click event to checkbox
+  //check task
   taskCheckbox.addEventListener('click', function(){
     if(taskCheckbox.checked === true){
       taskTitle.style.textDecoration = "line-through";
       
       //send checked task to botton
-      //var taskElement = taskTitle.parentNode;
-      //taskElement.parentNode.append(taskElement);
-      
-      sortTaks(tasksContainer);
+      sortTasks(tasksContainer);
 
       //reproduce sound
-      playAudio();
+      playAudio(completedTaskTune);
     }else {
       taskTitle.style.textDecoration = "none"
     }
   })
+  
+  
 
   //click event to delete task
   taskDelete.addEventListener('click', function(){
     task.remove();
+    playAudio(deletedTaskTune);
   })
 
   task.append(taskCheckbox, taskTitle, taskEditor);
-  tasksContainer.insertBefore(task, tasksContainer.lastChild)
+  tasksContainer.append(task);
+  playAudio(addedTaskTune);
   //clean input
-  input.value = ''
-  sortTaks(tasksContainer);
+  input.value = '';
+
+  //sort tasks
+  sortTasks(tasksContainer);
+  taskCheckbox.addEventListener('mouseup', sortTasks(tasksContainer));
 })
