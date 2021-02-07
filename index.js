@@ -93,7 +93,6 @@ buttonSubmit.addEventListener('click', function() {
     for(var i = 0; i < level; i++){
       var element = document.createElement('div');
       element.className = 'btn bi bi-exclamation-circle-fill align-self-top p-1 ' + priorityColors[level-1];
-      console.log(element.className);
       container.append(element);
     }
   }
