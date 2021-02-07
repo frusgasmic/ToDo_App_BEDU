@@ -1,30 +1,45 @@
 // STRUCTURE
+var favicon = document.createElement('link');
+favicon.rel = 'shortcut icon';
+favicon.type = 'image/x-icon';
+favicon.href = 'media/toDoApp.ico';
+document.getElementsByTagName('head')[0].append(favicon);
+
+
 var container = document.querySelector('#app');
-container.className = 'container text-center my-5';
+container.className = 'container text-center py-5 d-flex flex-column align-items-center justify-content-center';
 
 //create title
 var title = document.createElement('h1');
 title.textContent = 'ToDo App';
+title.className = 'd-flex align-items-center justify-content-between bi bi-patch-check';
+title.style.width = '230px';
 //create input
 var input = document.createElement('input');
 input.placeholder = 'New Task...';
-input.className = 'form-control';
+input.className = 'form-control mx-sm-3 shadow rounded';
+input.style.width = '100px';
+input.style.border = 'none';
+input.style.borderBottom = 'thick solid #5bc0de';
 //create button submit
 var buttonSubmit = document.createElement('button');
-buttonSubmit.className = 'd-flex align-items-center btn btn-outline-primary bi bi-plus-circle text-primary';
+buttonSubmit.className = 'd-flex align-items-center bg-transparent bi bi-plus-square-dotted text-info px-2';
+buttonSubmit.style.border = 'none';
+buttonSubmit.style.fontSize = '2.5rem';
 buttonSubmit.onmouseout = function() {
-  buttonSubmit.className = 'd-flex align-items-center btn btn-outline-primary bi bi-plus-circle text-primary';
+  buttonSubmit.className = 'd-flex align-items-center bg-transparent bi bi-plus-square-dotted text-info px-2';
 }
 buttonSubmit.onmouseover = function() {
-  buttonSubmit.className = 'd-flex align-items-center btn btn-outline-primary bi bi-plus-circle text-light';
+  buttonSubmit.className = 'd-flex align-items-center bg-transparent bi bi-plus-square-fill text-info px-2';
 }
 //create form to input and buttonsubmit
-var taskForm = document.createElement('div');
-taskForm.className = 'input-group mt-4';
+var taskForm = document.createElement('section');
+taskForm.className = 'input-group my-4 bg-transparent form-inline';
 taskForm.append(input,buttonSubmit);
+
 //create tasks container
-var tasksContainer = document.createElement('div');
-tasksContainer.className = 'mt-4';
+var tasksContainer = document.createElement('section');
+tasksContainer.className = 'd-flex flex-column align-items-center justify-content-center mt-4 w-75 ';
 
 container.append(title, taskForm, tasksContainer);
 
@@ -61,7 +76,7 @@ function playAudio(audio) {
 
 buttonSubmit.addEventListener('click', function() {
   var task = document.createElement('div');
-  task.className = 'd-flex justify-content-between align-items-center mt-3';
+  task.className = 'd-flex justify-content-between align-items-center my-3 w-100 p-2 shadow rounded bg-light';
   
   //create all task elements
   var taskCheckbox = document.createElement('input');
@@ -72,27 +87,26 @@ buttonSubmit.addEventListener('click', function() {
 
   //task editor
   var taskEditor = document.createElement('div'); 
-  taskEditor.className = 'd-flex justify-content-between align-self-middle align-items-center w-25'
+  taskEditor.className = 'd-flex justify-content-between align-self-middle align-items-center'
+  taskEditor.style.width = '35%'
     //delete task
   var taskDelete = document.createElement('button');
   taskDelete.className = 'd-flex align-items-center btn btn-danger bi bi-trash p-2';
     // select task priority
   var taskPriority = document.createElement('div');
-  taskPriority.className = 'd-flex justify-content-between align-self-middle align-items-center w-50'
+  taskPriority.className = 'd-flex justify-content-between align-self-middle align-items-center w-50 px-1'
   
   var prioritySelector = document.createElement('div');
-  prioritySelector.className = 'd-flex align-items-center border border-secondary rounded p-0';
+  prioritySelector.className = 'd-flex align-items-center rounded p-0';
 
   var priorityLevel = 1;
   var priorityColors = ['text-success','text-warning','text-danger'];
-
-  
   
   function raisePriority(container, level) {
     container.innerHTML = '';
     for(var i = 0; i < level; i++){
       var element = document.createElement('div');
-      element.className = 'btn bi bi-exclamation-circle-fill align-self-top p-1 ' + priorityColors[level-1];
+      element.className = 'd-flex align-items-center btn bi bi-exclamation-circle-fill align-self-top p-1 ' + priorityColors[level-1];
       container.append(element);
     }
   }
@@ -116,8 +130,9 @@ buttonSubmit.addEventListener('click', function() {
     playAudio(priorityTune);
   })
 
-  
-  taskPriority.append(document.createElement('span').textContent = 'Priority:',prioritySelector);
+  var priorityText = document.createElement('span');
+  priorityText.textContent = 'Priority:'
+  taskPriority.append(priorityText,prioritySelector);
 
   taskEditor.append(taskPriority,taskDelete);
 
